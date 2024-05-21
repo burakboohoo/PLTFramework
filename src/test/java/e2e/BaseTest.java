@@ -6,6 +6,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -25,11 +28,32 @@ public class BaseTest {
     public ExtentTest logger;
     public ExtentReports report;
 
+    String browserName = "Chrome";
+
     @BeforeClass(alwaysRun=true)
     public void setup(ITestContext context) {
-        System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        switch (browserName)
+        {
+            case "Firefox":
+                if (driver == null) {
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                }
+                break;
+
+            case "Chrome":
+                if (driver == null) {
+                    System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                }
+                break;
+            case "Safari":
+                if(driver == null) {
+                    WebDriverManager.safaridriver().setup();
+                    driver = new SafariDriver();
+                }
+        }
         driver.manage().window().maximize();
         context.setAttribute("WebDriver", driver);
 
