@@ -11,6 +11,7 @@ public class PurchaseItem extends BaseTest {
     @Test(description = "Select a random product")
     public void selectProduct() {
 
+        homePage.gotoHomePage();
         homePage.selectItem();
 
         prodcutName = pdp.storeProductName();

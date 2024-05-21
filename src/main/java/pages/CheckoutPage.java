@@ -64,13 +64,13 @@ public class CheckoutPage extends BasePage{
     @FindBy(className = "grand-total")
     private WebElement grandTotal;
 
-    @FindBy(xpath = "//h2[text()='Payment Information']")
+    @FindBy(css = "section > .payment-methods-container")
     private WebElement paymentSection;
 
-    @FindBy(xpath = "//*[@name='worldpay']")
+    @FindBy(xpath = "//span[text()='Pay with card']")
     private WebElement cardPaymentMethod;
 
-    @FindBy(xpath = "//div[2]/*[contains(@class, 'accordion-content-container')]")
+    @FindBy(xpath = "//h2[text()='Secure Card Payment']")
     private WebElement cardPaymentBox;
 
     WebDriverWait wait;
@@ -153,11 +153,13 @@ public class CheckoutPage extends BasePage{
     }
     public void scrollToPaymentSection() {
         Utilities utilities = new Utilities(driver);
+        utilities.explicitWait(paymentSection);
         utilities.scrollDownToElement(paymentSection);
         this.selectCardPaymentMethod();
     }
     public void selectCardPaymentMethod() {
         Utilities utilities = new Utilities(driver);
+        utilities.explicitWait(cardPaymentMethod);
         utilities.clickOnJS(cardPaymentMethod);
         this.assertCardPaymentBoxIsDisplayed();
     }

@@ -30,8 +30,7 @@ public class HomePage extends BasePage{
     }
 
     public void selectItem() {
-        this.gotoHomePage();
-
+        this.selectCategoryRandomly();
     }
 
     public void gotoHomePage() {
@@ -58,7 +57,6 @@ public class HomePage extends BasePage{
         Utilities utilities = new Utilities(driver);
         wait.until(ExpectedConditions.visibilityOf(acceptAllButton));
         utilities.clickOnJS(acceptAllButton);
-        this.selectCategoryRandomly();
     }
 
     public void clickOnLoginButton(){
