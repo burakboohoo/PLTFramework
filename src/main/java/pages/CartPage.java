@@ -35,7 +35,7 @@ public class CartPage extends BasePage {
 
     public void assertProductSizeInBag(String itemSize) {
         String selectedSize = productSize.getText();
-
+        // Text comes with an extra infos and using split":" get size
         Assert.assertEquals(selectedSize.split(":")[1].strip(), itemSize);
     }
 

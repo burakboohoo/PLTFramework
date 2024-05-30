@@ -17,7 +17,7 @@ public class HomePage extends BasePage{
 
     @FindBy(css = "[data-testid='account-icon']")
             private WebElement loginButton;
-    @FindBys(@FindBy(id="frame-header-nav"))
+    @FindBys(@FindBy(css = "#frame-header-nav > li"))
             private List<WebElement> navMenu;
     @FindBy(xpath = "//button[text()='Accept All']")
             private WebElement acceptAllButton;
@@ -37,7 +37,7 @@ public class HomePage extends BasePage{
         Utilities utilities = new Utilities(driver);
         driver.get(Environment.getProperty("homepageURL"));
         utilities.waitForPageToLoad(25);
-        this.setAlertAccept();
+        this.setAlertAccept(); //needs to handle alert in order to find locaters
     }
 
     public void selectCategoryRandomly() {
@@ -46,11 +46,12 @@ public class HomePage extends BasePage{
         List<WebElement> categories = navMenu;
 
         Random random = new Random();
-        int randomIndex = random.nextInt(categories.size());
+        // delete last category EDIT from the list
+        int randomIndex = random.nextInt(categories.size()-1);
 
         categories.get(randomIndex).click();
         utilities.waitForPageToLoad(30);
-        plp.assertPLPisDisplayed();
+        plp.assertPLPisDisplayed(); //assertion PLP is displayed
     }
 
     public void setAlertAccept() {
